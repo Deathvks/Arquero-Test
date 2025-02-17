@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   public mostrarFormularioEditarEmpleado: boolean;
   public empleadoSeleccionado: any = null;
   public mostrarMensajeErrorGeneral: boolean = false;
+  public mostrarMensajeErrorDNI: boolean = false;
 
   constructor(private http: HttpService, private formBuilder: FormBuilder) {}
 
@@ -55,6 +56,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.mostrarMensajeErrorGeneral = false;
+    this.mostrarMensajeErrorDNI = false;
 
     this.formularioEmpleado
       .get("dni")
@@ -72,16 +74,22 @@ export class HomeComponent implements OnInit {
 
   public anadirEmpleado() {
     this.formularioEmpleado.markAllAsTouched();
+    this.validarDNI();
 
-    if (!this.validarDNI()) {
-      console.log("No se puede añadir: DNI incorrecto");
-      return;
-    }
-
-    if (this.formularioEmpleado.invalid) {
+    if (
+      this.formularioEmpleado.get("dni").invalid &&
+      this.formularioEmpleado.valid
+    ) {
+      this.mostrarMensajeErrorDNI = true;
+      this.mostrarMensajeErrorGeneral = false;
+    } else if (this.formularioEmpleado.invalid) {
       this.mostrarMensajeErrorGeneral = true;
+      this.mostrarMensajeErrorDNI = false;
       console.log("Formulario inválido. No se añade el empleado.");
       return;
+    } else {
+      this.mostrarMensajeErrorGeneral = false;
+      this.mostrarMensajeErrorDNI = false;
     }
 
     this.mostrarMensajeErrorGeneral = false;
@@ -111,15 +119,20 @@ export class HomeComponent implements OnInit {
   public editarEmpleado(empleado: any) {
     this.formularioEmpleado.markAllAsTouched();
 
-    if (!this.validarDNI()) {
-      console.log("No se puede editar: DNI incorrecto");
-      return;
-    }
-
-    if (this.formularioEmpleado.invalid) {
+    if (
+      this.formularioEmpleado.get("dni").invalid &&
+      this.formularioEmpleado.valid
+    ) {
+      this.mostrarMensajeErrorDNI = true;
+      this.mostrarMensajeErrorGeneral = false;
+    } else if (this.formularioEmpleado.invalid) {
       this.mostrarMensajeErrorGeneral = true;
-      console.log("Formulario inválido. No se edita el empleado.");
+      this.mostrarMensajeErrorDNI = false;
+      console.log("Formulario inválido. No se edita al empleado.");
       return;
+    } else {
+      this.mostrarMensajeErrorGeneral = false;
+      this.mostrarMensajeErrorDNI = false;
     }
 
     this.mostrarMensajeErrorGeneral = false;
@@ -142,14 +155,25 @@ export class HomeComponent implements OnInit {
     if (!dniControl) return;
 
     const dni = dniControl.value;
-    if (!dni) {
+
+    if (!dni && !dniControl.touched) {
       dniControl.setErrors(null);
+      this.mostrarMensajeErrorDNI = false;
+      return;
+    }
+    if (
+      this.formularioEmpleado.get("dni").hasError("required") &&
+      dniControl.touched
+    ) {
+      dniControl.setErrors({ required: true });
+      this.mostrarMensajeErrorDNI = false;
       return;
     }
 
     const dniRegex = /^[0-9]{8}[A-Z]$/;
     if (!dniRegex.test(dni)) {
       dniControl.setErrors({ dniInvalido: "El formato del DNI no es válido" });
+      this.mostrarMensajeErrorDNI = true;
       return;
     }
 
@@ -160,7 +184,8 @@ export class HomeComponent implements OnInit {
 
     if (letra !== letraCalculada) {
       dniControl.setErrors({ dniInvalido: "La letra del DNI es incorrecta" });
-      return false;
+      this.mostrarMensajeErrorDNI = true;
+      return;
     }
 
     dniControl.setErrors(null);
