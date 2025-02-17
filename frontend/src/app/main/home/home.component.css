@@ -101,6 +101,11 @@ tr:nth-child(even) {
     font-size: 12px;
     text-align: center;
   }
+
+  .text-danger {
+    margin: 1em auto;
+    text-align: center;
+  }
 }
 
 
