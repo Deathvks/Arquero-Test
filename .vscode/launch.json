@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PruebaArqueroBackendApplication<prueba-arquero-backend>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.prueba.arquero.pruebaarquerobackend.PruebaArqueroBackendApplication",
+            "projectName": "prueba-arquero-backend",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

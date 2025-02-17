@@ -1,0 +1,126 @@
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.estilo-cabecera-tabla {
+  border: 1px solid #dddddd;
+}
+
+.home-components-errors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.col h1 {
+  display: flex;
+  margin: 1em auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-danger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.row h5{
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 1em;
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  table {
+    font-size: 12px; /* Reduce el tamaño de la fuente en la tabla */
+  }
+
+  th, td {
+    padding: 5px; /* Reduce el padding en celdas */
+  }
+
+  .col-12, .col-md-4 {
+    width: 100%;
+    padding: 5px; /* Reduce el padding de columnas */
+  }
+
+  .col-md-4.my-auto {
+    margin-top: 0.5em;
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 0.5em;
+    padding: 5px; /* Reduce el tamaño de los botones */
+    font-size: 14px;
+  }
+
+  .input-group {
+    margin-bottom: 5px;
+  }
+
+  .form-control {
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  img {
+    width: 20px !important; /* Reduce el tamaño de los iconos */
+    height: auto;
+  }
+
+  .home-components-errors small {
+    font-size: 12px;
+    text-align: center;
+  }
+}
+
+
+/* Media Query for tablets */
+@media only screen and (min-width: 768px) {
+  .dni-col, .domicilio-col {
+    min-width: 50px; /* O el ancho que desees */
+  }
+}
+
+/* Media Query for desktops */
+@media only screen and (min-width: 1025px) {
+  .dni-col, .domicilio-col {
+    min-width: 200px; /* O el ancho que desees */
+  }
+}
+
+/* Media Query for large desktops */
+@media only screen and (min-width: 1152px) {
+  .dni-col, .domicilio-col {
+    min-width: 250px;
+  }
+}
